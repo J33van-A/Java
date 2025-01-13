@@ -1,0 +1,713 @@
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+
+
+        String pass[]=new String[10];
+        String user2[]=new String[10];
+        double stocktot[] = new double[10];
+        double chestore = 0;
+        double stonks = 0;
+        double styzes = 0;
+        double jeffTDs = 0;
+        System.out.println("\n\nWelcome to 100%Culminating Budget app\n");
+        String[] user1=namemak();
+        String[] pass1=passmak();
+        String use=user1[0];
+        user1=user(use);
+        String pass2=pass1[0];
+        pass1=pass(pass2);
+      //the six lines above are for login and checking identity
+        int x = 0;
+
+        System.out.print("\nHello "+ user1[0]+" What would you like to do: \n");
+
+        do {
+            System.out.print("\n1. Checkings:");
+            System.out.print("\n2. Savings:");
+            System.out.print("\n3. Investments:");
+            System.out.print("\n4. Budget: ");
+            System.out.print("\n5. Exit: ");
+            System.out.print("\n\nEnter Here: ");
+
+            int whatpage = in .nextInt();
+            //taking input for what someone would like ot use 
+
+            if (whatpage == 1) {
+                double[] store = chequingsStars(chestore);
+            //runs method
+                chestore = store[0];
+            } else if (whatpage == 2) {
+            
+                double[] save = saving(chestore);
+            //runs saving method
+
+            } else if (whatpage == 3) {
+                double[] investtot = new double[10];
+            //investment run
+
+                double[] invest = investment(chestore, stonks, styzes, jeffTDs);
+                stonks = invest[0];
+                styzes = invest[1];
+                jeffTDs = invest[2];
+                chestore = invest[3];
+            //out best solution to keepign stock amounts
+
+            } else if (whatpage == 4) {
+
+                budget();
+            //runs budget
+            } else if (whatpage == 5) {
+                x = 1;
+            //cuts the do while loop
+            } else {
+                System.out.print("\nPlease choice vaild numbers between 1-6\n");
+            //runs program back through to get real number
+            }
+        } while (x == 0);
+
+        System.out.print("\nThank you for banking with 100%Culminating, see you soon! \n");
+
+    }
+
+    public static String[] namemak() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("\nPlease enter your last name: ");
+        String last = in .next();
+        System.out.print("\nPlease enter your First name: ");
+        String first = in .next();
+        
+        System.out.print("\nPlease enter your birthdate (day only): ");
+        int birthDate = in .nextInt();
+
+        String TLLNL = "";
+        String TLLNF = "";
+        String nm[] = new String[10];
+        int lasnm = last.length();
+        //takes part of last name
+        if (lasnm >= 3) {
+            TLLNL = last.substring(0, 3);
+        } else if (lasnm < 3) {
+            TLLNL = last.substring(0, lasnm);
+        }
+        //part of first name
+        int firnm = first.length();
+        if (firnm >= 3) {
+            TLLNF = first.substring(0, 3);
+        } else if (firnm < 3) {
+            TLLNF = first.substring(0, firnm);
+        }
+        System.out.println("Your username is: " + TLLNF + TLLNL + birthDate + "\n");
+        //puts the last name and first name togethaer and brithday 
+        nm[0] = TLLNF + TLLNL + birthDate;
+
+        return nm;
+
+    }
+
+    public static String[] passmak() {
+        Scanner in = new Scanner(System.in);
+
+        String[] str = new String[10];
+        System.out.print("Please make a password: ");
+        String pass = in.nextLine();
+        if (pass.length() >= 5) {
+            str[0] = pass;
+        } else {
+            System.out.println("Invalid password. Password should be at least 5 characters long.");
+            return passmak();
+        }
+      return str;
+    }
+
+    public static String[] user(String user1) {
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+
+        String str[] = new String[10];
+        str[0] = user1;
+
+        int y = 0;
+        int z = 0;
+
+        do {
+            y = 0;
+            System.out.print("\nUsername: ");
+            String user2 = in .next();
+            for (int x = 0; x < 10; x++) {
+                if (user2.equals(str[x])) {
+                    System.out.print("\nCorrect \n");
+                    z = 1;
+                    break;
+                } else {
+                    y = y + 1;
+                }
+            }
+            if (y == 10) {
+
+                System.out.print("Please try again with your username\n");
+                System.out.print("Press 0 to try again: ");
+                z = in .nextInt();
+            }
+
+        } while (z == 0);
+      //runs till right name is typed in
+
+
+        return str;
+
+    }
+
+    public static String[] pass(String pass1) {
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+        String str[] = new String[10];
+        str[0] = pass1;
+
+        int y = 0;
+        int z = 0;
+        do {
+            y = 0;
+            System.out.print("\nPassword: ");
+            String user2 = in .next();
+            for (int x = 0; x < 10; x++) {
+                if (user2.equals(str[x])) {
+                    System.out.print("\nAccess Granted \n");
+                    z = 1;
+                    break;
+                } else {
+                    y = y + 1;
+                }
+            }
+            if (y == 10) {
+
+                System.out.print("Please try again with your password\n");
+                System.out.print("Press 0 to try again: ");
+                z = in .nextInt();
+            }
+          //right password  needs to be typed in to allow access
+        } while (z == 0);
+        return str;
+    }
+
+    public static double[] chequingsStars(double chestore) {
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+        int x = 0;
+        double chequtot = 0;
+        int trans[] = new int[10];
+        double str[] = new double[10];
+        str[0] = chestore;
+        do {
+            System.out.print("\nYour total is " + str[0] + "\n");
+            System.out.print("\nWhat would you like to do? ");
+            System.out.print("\nPress 1 to Deposit ");
+            System.out.print("\nPress 2 to Withdraw ");
+            System.out.print("\nPress 3 to Tranfers ");
+            System.out.print("\nPress 4 to Exit ");
+            System.out.print("\nEnter Here:");
+            int option = in .nextInt();
+          //option board
+            if (option == 1) {
+                System.out.print("\nHow much would you like to deposit: ");
+                double deposit = in .nextDouble();
+                chequtot = chequtot + deposit;
+                str[0] = chequtot;
+              //put in money
+            } else if (option == 2) {
+                System.out.print("\nHow much would you like to withdraw: ");
+                int withdraw = in .nextInt();
+                if (withdraw <= str[0]) {
+                    chequtot = str[0] - withdraw;
+                    str[0] = chequtot;
+                    System.out.print("\nSuccessful\n");
+                } else {
+                    System.out.print("\nInsufficient Funds");
+                }//withdarws amount needed unless not enoguh fundeds
+            } else if (option == 3) {
+                System.out.print("\nWho would you like to tranfer to: ");
+                String tranfernam = in .next();
+              
+                System.out.print("\nHow much would you like to tranfer: ");
+                double tranfer = in .nextDouble();
+   
+                if (tranfer <= str[0]) {
+                    chequtot = str[0] - tranfer;
+                    str[0] = chequtot;
+                    System.out.print("\n\nYour tranfer number is: ");
+                    for (int y = 0; y < 4; y++) {
+                        trans[y] = random.nextInt(9);
+                        System.out.print(trans[y]);
+                      //transfer to people and gives number
+                    }
+                    System.out.print("\n\n");
+                } else {
+                    System.out.print("\nInsufficient Funds\n");
+                }
+            } else if (option == 4) {
+                x = 1;
+                str[0] = chequtot;
+            } else {
+                System.out.print("\nPlease type in a vaild number\n");
+            }
+        } while (x == 0);
+
+        System.out.print("\n\n");
+        return str;
+    }
+
+    public static double[] saving(double chestore) {
+
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+        double str[] = new double[10];
+        str[0]=chestore;
+        double save[] = new double[10];
+        save[0] = 0;
+        int x = 0;
+        do {
+            System.out.print("\nWhat would you like to do?");
+            System.out.print("\nTotal checkings balance: " + str[0]);
+            System.out.println("\nSavings balance: " + save[0]);
+
+            System.out.println("Press 1 to transfer money");
+            System.out.println("Press 2 to use the Interest Calculator");
+            System.out.println("Press 3 to exit");
+            System.out.print("Enter here: ");
+            int optionTwo = in .nextInt();
+            if (optionTwo == 1) {   
+                System.out.println("\nPress 1. to transfer from checkings to savings ");
+                System.out.println("\nPress 2. to transfer from savings to checkings");
+//sacing account options
+                int transferOption = in .nextInt();
+                if (transferOption == 1) {
+
+                  
+                    System.out.print("\nHow much would you like to transfer?");
+                    System.out.print("\nEnter here: ");
+
+                  
+                    double savetrans = in .nextDouble();
+                    if (str[0] >= savetrans) {
+                        System.out.print("\nSuccessful\n");
+                        str[0] = str[0] - savetrans;
+                        save[0] = save[0] + savetrans;
+                        System.out.print(str[0]);
+                    } else {
+                        System.out.print("\n\nInsufficient Funds\nTry again later\n");
+                    }//moves amount from chequing and saving
+                } else if (transferOption == 2) {
+                    System.out.print("\nHow much would you like to transfer?");
+                    System.out.print("\nEnter here: ");
+                    double savetrans = in .nextDouble();
+                    if (save[0] >= savetrans) {
+                        System.out.print("\nSuccessful\n");
+                        save[0] = save[0] - savetrans;
+                        str[0] = str[0] + savetrans;
+                        System.out.print(str[0]);
+                    } else {
+                        System.out.print("\nInsufficient Funds\nTry again later\n");
+                    }
+                }
+                 else{
+                   System.out.print("\nInvalid answer. Try Again\n");
+                 }             
+            } else if (optionTwo == 2) {
+                System.out.print("Enter Bank Balance: ");
+                double principal = in.nextDouble();
+                System.out.print("Enter interest rate as a percent: ");
+                double interestRate = in.nextDouble();
+    
+                System.out.print("Enter Time you are saving for in years: ");
+                double years = in.nextDouble();
+                double interestDec = interestRate / 100;
+                double finalInterest = principal * years * interestDec;
+                System.out.println("Principal: " + principal);
+                System.out.println("Interest: " + finalInterest);
+                System.out.println("Final Amount: " + (principal + finalInterest));
+              
+            } else if (optionTwo == 3) {
+                x = 1;
+            } else {
+                System.out.print("\nEnter validated number\n");
+            }//saving amount
+        } while (x == 0);
+        return str;
+    }
+
+    public static double[] investment(double chestore, double stonks, double styzes, double jeffTDs) {
+
+        double str[] = new double[10];
+        Random random = new Random();
+        Scanner in = new Scanner(System.in);
+        System.out.print("\n\n");
+
+        int z = 0;
+        double stonkor = random.nextInt(90);
+        double Styzeor = random.nextInt(420);
+        double jeffTDor = random.nextInt(69);
+        double stra[] = new double[10];
+//stonks amount
+        double mon[] = new double[10];
+        mon[0] = chestore;
+
+
+
+        stra[0] = stonks;
+        stra[1] = styzes;
+        stra[2] = jeffTDs;
+
+        do {
+
+            System.out.print("\n\n");
+
+            int stonk = random.nextInt(5);
+            int v = random.nextInt(3);
+            double stonktot = stonkor;
+
+
+            if (v <= 1) {
+                stonkor = stonkor + (stonk);
+            } else if (v == 2) {
+
+                stonkor = stonkor - (stonk);
+            }
+            if (stonkor > stonktot) {
+
+                System.out.print("↑Stonk " + stonkor);
+
+            } else if (stonkor < stonktot) {
+                System.out.print("↓Stonk " + stonkor);
+
+            } else {
+                System.out.print(" Stonk " + stonkor);
+            }
+
+
+            int styz = random.nextInt(5);
+            v = random.nextInt(3);
+            double Styztot = Styzeor;
+
+
+            if (v <= 1) {
+                Styzeor = Styzeor + (styz);
+            } else if (v == 2) {
+
+                Styzeor = Styzeor - (styz);
+            }
+            if (Styzeor < Styztot) {
+                System.out.print("\t\t↓Styze " + Styzeor);
+
+
+            } else if (Styzeor > Styztot) {
+                System.out.print("\t\t↑Styze " + Styzeor);
+
+            } else {
+                System.out.print("\t\t Styze " + Styzeor);
+            }
+
+
+            int jef = random.nextInt(5);
+            v = random.nextInt(3);
+            double jefftot = jeffTDor;
+
+
+            if (v <= 1) {
+                jeffTDor = jeffTDor + (jef);
+            } else if (v == 2) {
+
+                jeffTDor = jeffTDor - (jef);
+            }
+            if (jeffTDor < jefftot) {
+                System.out.print("\t\t↓JeffTD " + jeffTDor);
+
+
+            } else if (jeffTDor > jefftot) {
+                System.out.print("\t\t↑JeffTD " + jeffTDor);
+
+            } else {
+                System.out.print("\t\t JeffTD " + jeffTDor);
+            }
+            //makes amount for stock
+            System.out.print("\n\n\n" + stra[0] + " Stonk\n");
+            System.out.print("\n" + stra[1] + " Styze\n");
+            System.out.print("\n" + stra[2] + " JeffTD\n\n");
+
+
+            System.out.print("\n\n");
+
+
+
+            System.out.print("\nWhat would you like to do?");
+            System.out.print("\n1. buy");
+            System.out.print("\n2. sell");
+            System.out.print("\n3. exit");
+            System.out.print("\nEnter here: ");
+            int action = in .nextInt();
+            //action 
+            if (action == 1) {
+                int x = 0;
+                do {
+
+                    System.out.print("\n\nWhich stock would you like to buy?");
+                    System.out.print("\n1.Stonk");
+                    System.out.print("\n2.Styze");
+                    System.out.print("\n3.JeffTD");
+                    System.out.print("\n4.Exit here");
+                    System.out.print("\nEnter here: ");
+                    int action1 = in .nextInt();
+                  //buying menu
+                    if (action1 == 1) {
+                        System.out.print("\nHow much would you like to buy of stonks?");
+                        System.out.print("\nEnter here:");
+                        int num = in .nextInt();
+
+                        double chestore1 = mon[0] - (num * stonkor);
+
+
+                        if (chestore1 >= 0) {
+                            stra[0] = num;
+                            mon[0] = mon[0] - (num * stonkor);
+                            System.out.print("\nsuccessful\n");
+                        } else {
+                            System.out.print("\nInsufficient Funds");
+                        }
+
+
+
+                    } else if (action1 == 2) {
+
+
+                        System.out.print("\nHow much would you like to buy of Styze?");
+                        System.out.print("\nEnter here:");
+                        int num = in .nextInt();
+                        double chestore1 = mon[0] - (num * Styzeor);
+
+
+                        if (chestore1 >= 0) {
+                            stra[1] = num;
+                            mon[0] = mon[0] - (num * Styzeor);
+                            System.out.print("\nsuccessful\n");
+                        } else {
+                            System.out.print("\nInsufficient Funds");
+                        }
+                    } else if (action1 == 3) {
+
+                        System.out.print("\nHow much would you like to buy of JeffTD?");
+                        System.out.print("\nEnter here:");
+                        int num = in .nextInt();
+
+                        double chestore1 = mon[0] - (num * jeffTDor);
+
+
+
+                        if (chestore1 >= 0) {
+                            stra[2] = num;
+                            mon[0] = mon[0] - (num * jeffTDor);
+                            System.out.print("\nsuccessful\n");
+                        } else {
+                            System.out.print("\nInsufficient Funds");
+
+                        }
+                    } else if (action1 == 4) {
+                        x = 1;
+                    } else {
+                        System.out.print("Enter validated number");
+                    }
+
+
+
+
+
+
+
+
+
+                } while (x == 0);
+
+
+
+            } else if (action == 2) {
+                int x = 0;
+                do {
+
+                    System.out.print("\n\nWhich stock would you like to sell?");
+                    System.out.print("\n1.Stonk");
+                    System.out.print("\n2.Styze");
+                    System.out.print("\n3.JeffTD");
+                    System.out.print("\n4.Exit here");
+                    System.out.print("\nEnter here: ");
+                    int action2 = in .nextInt();
+
+                    if (action2 == 1) {
+
+                    //selling menu
+
+                        System.out.print("\nHow much would you like to sell of Stonks: ");
+                        int num = in .nextInt();
+                        if (stra[0] >= num) {
+
+                            mon[0] = mon[0] + (num * stonkor);
+                            stra[0] = stra[0] - num;
+
+
+                            System.out.print("\nsuccessful\n ");
+                        } else {
+                            System.out.print("\nUnsuccessful\n ");
+                        }
+
+                    } else if (action2 == 2) {
+
+                        System.out.print("\nHow much would you like to sell of Styze: ");
+                        int num = in .nextInt();
+
+                        if (stra[1] >= num) {
+
+                            mon[0] = mon[0] + (num * Styzeor);
+                            stra[1] = stra[1] - num;
+                            System.out.print("\nsuccessful\n ");
+                        } else {
+                            System.out.print("\nUnsuccessful\n ");
+                        }
+
+
+                    } else if (action2 == 3) {
+
+                        System.out.print("\nHow much would you like to sell of JeffTD: ");
+                        int num = in .nextInt();
+
+                        if (stra[2] >= num) {
+
+
+                            mon[0] = mon[0] + (num * jeffTDor);
+                            stra[2] = stra[2] - num;
+                            System.out.print("\nsuccessful\n ");
+                        } else {
+                            System.out.print("\nUnsuccessful\n ");
+                        }
+
+
+
+
+                    } else if (action2 == 4) {
+
+                        x = 1;
+                    } else {
+                        System.out.print("\nEnter validated number\n");
+                    }
+                } while (x == 0);
+
+
+
+
+
+            } else if (action == 3) {
+
+                z = 1;
+
+            } else {
+                System.out.print("Enter validated number");
+
+
+
+
+
+
+
+
+            }
+
+
+
+        } while (z == 0);
+
+
+
+        stra[3] = mon[0];
+
+
+        return stra;
+
+    }
+
+    public static double[] budget() {
+        Scanner in = new Scanner(System.in);
+        Random random = new Random();
+
+        int amountglobal = 0;
+        String[] budnameback = new String[100];
+        double[] budamountback = new double[100];
+        int y = 0;
+        int action;
+
+        do {
+            System.out.println("\n\n1. Make Budgets");
+            System.out.println("2. Input Information To Budgets");
+            System.out.println("3. Exit");
+            System.out.print("\n\nEnter Here: ");
+            action = in.nextInt();
+
+            if (action == 1) {
+                System.out.print("\n\nPlease let us know how many items you would like to make budgets for: ");
+                System.out.print("\n\nNote: By redoing this actio you will creat new budgets.\n ");
+                int amount = in.nextInt();
+
+                String[] budname = new String[amount];
+                double[] budamount = new double[amount];
+
+                for (int i = 0; i < amount; i++) {
+                    System.out.print("\n\nPlease type in the name of the budget: ");
+                    System.out.print("\nEnter Here: ");
+                    String name = in.next();
+                    budname[i] = name;
+
+                    System.out.print("\nPlease type the amount for the budget: ");
+                    System.out.print("\nEnter Here: ");
+                    double tot = in.nextDouble();
+                    budamount[i] = tot;
+                }
+
+                amountglobal = amount;
+                budnameback = budname;
+                budamountback = budamount;
+            } else if (action == 2) {
+                if (amountglobal > 0) {
+                    System.out.println("\n\nWhich number would you like to input: ");
+                    for (int x = 0; x < amountglobal; x++) {
+                        System.out.println((x + 1) + "." + budnameback[x] + "\t" + budamountback[x]);
+                    }
+
+                    System.out.print("\n\nEnter Here: ");
+                    int action2 = in.nextInt();
+
+                    if (action2 >= 1 && action2 <= amountglobal) {
+                        System.out.print("\nHow much did you spend? ");
+                        System.out.print("\nEnter Here: ");
+                        double spent = in.nextDouble();
+
+                        if (spent >= 0 && budamountback[action2 - 1] >= spent) {
+                            System.out.println("\nCongratulations! You have stayed under/below your budget.");
+                        } else if (spent >= 0 && budamountback[action2 - 1] < spent) {
+                            System.out.println("\nYou have exceeded your budget by " + (spent - budamountback[action2 - 1]));
+                        } else {
+                            System.out.println("\nInvalid input. Please enter a valid amount.");
+                        }
+                    } else {
+                        System.out.println("\nInvalid input. Please enter a valid number.");
+                    }
+                } else {
+                    System.out.println("\nPlease make budgets first before inputting information.");
+                }
+            } else if (action == 3) {
+                y = 1;
+            } else {
+                System.out.println("\nInvalid option. Please choose a valid option.");
+            }
+        } while (y == 0);
+        return budamountback;
+    }
+
+}
